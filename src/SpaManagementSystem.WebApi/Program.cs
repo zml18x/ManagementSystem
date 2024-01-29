@@ -9,6 +9,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+SpaManagementSystem.Infrastructure.Data.DatabaseMigrator.MigrateDatabase(app.Services);
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
