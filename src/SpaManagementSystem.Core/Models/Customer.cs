@@ -6,21 +6,19 @@
         public string LastName {get; private set;}
         public string Gender {get; private set;}
         public DateOnly DateOfBirth {get; private set;}
-        public Guid AddressId {get; private set;}
         public string? Preferences {get; private set;}
         public string? Notes {get; private set;}
 
 
         
         public Customer(Guid id, string email, byte[] passwordSalt, byte[] passwordHash, string phoneNumber, string firstName, string lastName, string gender,
-            DateOnly dateOfBirth, Guid addressId, string? preferences = null, string? notes = null, bool twoFactorEnabled = false) 
+            DateOnly dateOfBirth, string? preferences = null, string? notes = null, bool twoFactorEnabled = false) 
             : base(id, email, passwordSalt, passwordHash, phoneNumber, twoFactorEnabled)
         {
             FirstName = firstName;
             LastName = lastName;
             Gender = gender;
             DateOfBirth = dateOfBirth;
-            AddressId = addressId;
             Preferences = preferences;
             Notes = notes;
         }

@@ -3,6 +3,7 @@ namespace SpaManagementSystem.Core.Models
     public class Address
     {
         public Guid Id {get; protected set;}
+        public Guid UserId { get; protected set;}
         public string Country { get; protected set; }
         public string CountryCode { get; protected set; }
         public string Region { get; protected set; }
@@ -13,10 +14,11 @@ namespace SpaManagementSystem.Core.Models
 
 
 
-         public Address(Guid id, string country, string countryCode, string region, string city, string postalCode,
+         public Address(Guid id, Guid userId, string country, string countryCode, string region, string city, string postalCode,
             string street, string buildingNumber)
         {
             Id = id;
+            UserId = userId;
             Country = country;
             CountryCode = countryCode;
             Region = region;
