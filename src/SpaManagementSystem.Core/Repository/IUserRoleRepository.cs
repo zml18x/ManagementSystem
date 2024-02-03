@@ -4,7 +4,7 @@ namespace SpaManagementSystem.Core.Repository
 {
     public interface IUserRoleRepository : IRepository<UserRole>
     {
-        Task<UserRole> GetByUserId(Guid userId);
-        Task<UserRole> GetByRoleId(Guid roleId);
+        Task<UserRole> GetByUserIdAsync(Guid userId);
+        Task<UserRole> GetByRoleIdAsync(Guid roleId);
     }
 }

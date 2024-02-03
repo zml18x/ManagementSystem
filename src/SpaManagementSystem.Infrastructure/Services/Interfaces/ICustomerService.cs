@@ -6,6 +6,6 @@ namespace SpaManagementSystem.Infrastructure.Services.Interfaces
     {
         Task<CustomerAccountDto> GetAsync(Guid id);
         Task RegisterAsync(string email, string password, string phoneNumber, string firstName, string lastName, string gender, DateOnly dateOfBirth, string? preferences);
-        Task LoginAsync(string email, string password);
+        Task<JwtDto> LoginAsync(string email, string password);
     }
 }

@@ -18,7 +18,7 @@ namespace SpaManagementSystem.Infrastructure.Repository
 
 
 
-        public async Task<Address> GetByUserId(Guid userId)
+        public async Task<Address> GetByUserIdAsync(Guid userId)
             => await Task.FromResult(await _context.Addresses.FirstOrDefaultAsync(x => x.UserId == userId));
     }
 }

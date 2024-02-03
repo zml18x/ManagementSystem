@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpaManagementSystem.Infrastructure.Services.Interfaces;
 using SpaManagementSystem.WebApi.RequestsModels.CustomerAccount;
 
@@ -37,15 +38,16 @@ namespace SpaManagementSystem.WebApi.Controllers
             if (loginModel == null)
                 return BadRequest();
 
-            await _customerService.LoginAsync(loginModel.Email, loginModel.Password);
+            var token = await _customerService.LoginAsync(loginModel.Email, loginModel.Password);
 
-            return Ok();
+            return new JsonResult(token);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAsync([FromHeader] Guid id)
+        [Authorize]
+        public async Task<IActionResult> GetAsync()
         {
-            var customer = await _customerService.GetAsync(id);
+            var customer = await _customerService.GetAsync(Guid.Parse(User.Identity!.Name!));
 
             if (customer == null)
                 return NotFound();
