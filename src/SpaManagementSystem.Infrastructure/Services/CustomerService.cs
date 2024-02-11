@@ -2,6 +2,7 @@
 using SpaManagementSystem.Core.Models;
 using SpaManagementSystem.Core.Repository;
 using SpaManagementSystem.Infrastructure.Dto;
+using SpaManagementSystem.Infrastructure.Exceptions;
 using SpaManagementSystem.Infrastructure.Extensions.Repository;
 using SpaManagementSystem.Infrastructure.Services.Interfaces;
 
@@ -12,6 +13,7 @@ namespace SpaManagementSystem.Infrastructure.Services
         private readonly ICustomerRepository _customerRepository;
         private readonly IPasswordService _passwordService;
         private readonly IJwtService _jwtService;
+
 
 
         public CustomerService(ICustomerRepository customerRepository, IPasswordService passwordService, IJwtService jwtService)
@@ -89,6 +91,50 @@ namespace SpaManagementSystem.Infrastructure.Services
             var jwt = _jwtService.CreateToken(customer);
 
             return jwt;
+        }
+
+        /// <summary>
+        /// Updates the profile information of a customer asynchronously.
+        /// </summary>
+        /// <param name="id">The ID of the customer to update.</param>
+        /// <param name="firstName">The new first name of the customer.</param>
+        /// <param name="lastName">The new last name of the customer.</param>
+        /// <param name="gender">The new gender of the customer.</param>
+        /// <param name="dateOfBirth">The new date of birth of the customer.</param>
+        /// <param name="preferences">The new preferences of the customer.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
+        public async Task UpdateProfileAsync(Guid id, string? firstName = null, string? lastName = null, string? gender = null, DateOnly? dateOfBirth = null, string? preferences = null)
+        {
+            try
+            {
+                var customer = await _customerRepository.GetOrFailAsync(id);
+
+                var isUpdated = customer.UpdateBasicInfromation(firstName, lastName, gender, dateOfBirth, preferences);
+
+                if (isUpdated)
+                {
+                    await _customerRepository.UpdateAsync(customer);
+                    await _customerRepository.SaveChangesAsync();
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                // ToDo
+
+                throw;
+            }
+            catch (NotFoundException ex)
+            {
+                // ToDo
+
+                throw;
+            }
+            catch (Exception ex)
+            {
+                // ToDo
+
+                throw;
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace SpaManagementSystem.Core.Models
         public bool LockoutEnabled {get; protected set;}
         public DateTime? LockoutEnd {get; protected set;}
         public DateTime CreatedAt {get; protected set;}
-        public DateTime UpdatedAt {get; protected set;}
+        public DateTime LastUpdateAt {get; protected set;}
         public DateTime? DeactivatedAt {get; protected set;}
 
 
@@ -33,7 +33,7 @@ namespace SpaManagementSystem.Core.Models
             LockoutEnabled = false;
             LockoutEnd = null;
             CreatedAt = DateTime.UtcNow;
-            UpdatedAt = CreatedAt;
+            LastUpdateAt = CreatedAt;
             DeactivatedAt = null;
         }
     }

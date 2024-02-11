@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using SpaManagementSystem.Infrastructure.Services.Interfaces;
 using SpaManagementSystem.WebApi.RequestsModels.CustomerAccount;
 
@@ -36,7 +36,7 @@ namespace SpaManagementSystem.WebApi.Controllers
         public async Task<IActionResult> LoginAsync([FromBody] LoginModel loginModel)
         {
             if (loginModel == null)
-                return BadRequest();
+                return BadRequest("Invalid request data.");
 
             var token = await _customerService.LoginAsync(loginModel.Email, loginModel.Password);
 
@@ -50,9 +50,23 @@ namespace SpaManagementSystem.WebApi.Controllers
             var customer = await _customerService.GetAsync(Guid.Parse(User.Identity!.Name!));
 
             if (customer == null)
-                return NotFound();
+                return NotFound("Invalid request data.");
 
             return new JsonResult(customer);
+        }
+
+        [HttpPatch("UpdateProfile")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProfileAsync([FromBody] UpdateProfileModel updateProfileModel)
+        {
+            if (updateProfileModel == null)
+                return BadRequest("Invalid request data.");
+
+            var customerId = Guid.Parse(User.Identity!.Name!);
+
+            await _customerService.UpdateProfileAsync(customerId, updateProfileModel.FirstName, updateProfileModel.LastName, updateProfileModel.Gender, updateProfileModel.DateOfBirth, updateProfileModel.Preferences);
+
+            return Ok("Profile updated successfully.");
         }
     }
 }
