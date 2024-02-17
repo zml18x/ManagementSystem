@@ -1,4 +1,6 @@
-﻿namespace SpaManagementSystem.Core.Models
+﻿using System.Text.RegularExpressions;
+
+namespace SpaManagementSystem.Core.Models
 {
     public sealed class Customer : User
     {
@@ -13,14 +15,14 @@
         
         public Customer(Guid id, string email, byte[] passwordSalt, byte[] passwordHash, string phoneNumber, string firstName, string lastName, string gender,
             DateOnly dateOfBirth, string? preferences = null, string? notes = null, bool twoFactorEnabled = false) 
-            : base(id, email, passwordSalt, passwordHash, phoneNumber, twoFactorEnabled)
+            : base(id, email, passwordSalt, passwordHash, phoneNumber)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Gender = gender;
-            DateOfBirth = dateOfBirth;
-            Preferences = preferences;
-            Notes = notes;
+            FirstName = ValidateFirstName(firstName);
+            LastName = ValidateLastName(lastName);
+            Gender = ValidateGender(gender);
+            DateOfBirth = ValidateDateOfBirth(dateOfBirth);
+            Preferences = ValidatePreferences(preferences);
+            Notes = ValidateNotes(notes);
         }
 
 
@@ -72,6 +74,74 @@
                 LastUpdateAt = DateTime.UtcNow;
             
             return anyInfoUpdated;
+        }
+
+        private string ValidateFirstName(string firstName)
+        {
+            if (string.IsNullOrWhiteSpace(firstName) || firstName.Length < 1 || firstName == string.Empty)
+                throw new ArgumentNullException("FirstName cannot be null or empty");
+
+
+            Regex regex = new Regex("^[a-zA-Z]+$");
+
+            if (!regex.IsMatch(firstName))
+                throw new ArgumentException("FirstName contains prohibited characters");
+
+            return firstName;
+        }
+
+        private string ValidateLastName(string lastName)
+        {
+            if (string.IsNullOrWhiteSpace(lastName) || lastName.Length < 1 || lastName == string.Empty)
+                throw new ArgumentNullException("FirstName cannot be null or empty");
+
+
+            Regex regex = new Regex("^[a-zA-Z]+$");
+
+            if (!regex.IsMatch(lastName))
+                throw new ArgumentException("LastName contains prohibited characters");
+
+            return lastName;
+        }
+
+        private string ValidateGender(string gender)
+        {
+            if (string.IsNullOrWhiteSpace(gender))
+                throw new ArgumentNullException(nameof(gender), "Gender cannot be null");
+
+            gender = gender.ToLower();
+
+            if (gender != "male" && gender != "female")
+                throw new ArgumentException("Invalid gender value", nameof(gender));
+
+            return gender;
+        }
+
+        private DateOnly ValidateDateOfBirth(DateOnly dateOfBirth)
+        {
+            if (dateOfBirth == DateOnly.MinValue)
+                throw new ArgumentException("Date of birth cannot be empty", nameof(dateOfBirth));
+
+            if (dateOfBirth > DateOnly.FromDateTime(DateTime.UtcNow.Date))
+                throw new ArgumentException("Date of birth cannot be in the future", nameof(dateOfBirth));
+
+            return dateOfBirth;
+        }
+
+        private string? ValidatePreferences(string? preferences)
+        {
+            if (!string.IsNullOrWhiteSpace(preferences) && preferences.Length > 1000)
+                throw new ArgumentException("Preferences length cannot exceed 1000 characters", nameof(preferences));
+
+            return preferences;
+        }
+
+        private string? ValidateNotes(string? notes)
+        {
+            if (!string.IsNullOrWhiteSpace(notes) && notes.Length > 1000)
+                throw new ArgumentException("Notes length cannot exceed 1000 characters", nameof(notes));
+
+            return notes;
         }
     }
 }
