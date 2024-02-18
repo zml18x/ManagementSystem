@@ -82,7 +82,7 @@ namespace SpaManagementSystem.Core.Models
                 throw new ArgumentNullException("FirstName cannot be null or empty");
 
 
-            Regex regex = new Regex("^[a-zA-Z]+$");
+            Regex regex = new Regex("^[a-zA-Z .]+$");
 
             if (!regex.IsMatch(firstName))
                 throw new ArgumentException("FirstName contains prohibited characters");
@@ -96,7 +96,7 @@ namespace SpaManagementSystem.Core.Models
                 throw new ArgumentNullException("FirstName cannot be null or empty");
 
 
-            Regex regex = new Regex("^[a-zA-Z]+$");
+            Regex regex = new Regex("^[a-zA-Z .]+$");
 
             if (!regex.IsMatch(lastName))
                 throw new ArgumentException("LastName contains prohibited characters");
@@ -131,7 +131,7 @@ namespace SpaManagementSystem.Core.Models
         private string? ValidatePreferences(string? preferences)
         {
             if (!string.IsNullOrWhiteSpace(preferences) && preferences.Length > 1000)
-                throw new ArgumentException("Preferences length cannot exceed 1000 characters", nameof(preferences));
+                throw new ArgumentOutOfRangeException("Preferences length cannot exceed 1000 characters", nameof(preferences));
 
             return preferences;
         }
@@ -139,7 +139,7 @@ namespace SpaManagementSystem.Core.Models
         private string? ValidateNotes(string? notes)
         {
             if (!string.IsNullOrWhiteSpace(notes) && notes.Length > 1000)
-                throw new ArgumentException("Notes length cannot exceed 1000 characters", nameof(notes));
+                throw new ArgumentOutOfRangeException("Notes length cannot exceed 1000 characters", nameof(notes));
 
             return notes;
         }
