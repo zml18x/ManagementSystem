@@ -42,31 +42,31 @@ namespace SpaManagementSystem.Core.Models
 
             if (firstName != null)
             {
-                FirstName = firstName;
+                FirstName = ValidateFirstName(firstName);
                 anyInfoUpdated = true;
             }
                 
             if (lastName != null)
             {
-                LastName = lastName;
+                LastName = ValidateLastName(lastName);
                 anyInfoUpdated = true;
             }
 
             if (gender != null)
             {
-                Gender = gender;
+                Gender = ValidateGender(gender);
                 anyInfoUpdated = true;
             }
 
             if (dateOfBirth != null)
             {
-                DateOfBirth = (DateOnly)dateOfBirth;
+                DateOfBirth = ValidateDateOfBirth((DateOnly)dateOfBirth);
                 anyInfoUpdated = true;
             }
 
             if (preferences != null)
             {
-                Preferences = preferences;
+                Preferences = ValidatePreferences(preferences);
                 anyInfoUpdated = true;
             }
 
