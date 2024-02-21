@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaManagementSystem.Infrast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaManagementSystem.WebApi", "src\SpaManagementSystem.WebApi\SpaManagementSystem.WebApi.csproj", "{87B5D6FC-0EBF-42A0-B74D-C7EF21FA29F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaManagementSystem.Core.Tests", "tests\UnitTests\SpaManagementSystem.Core.Tests\SpaManagementSystem.Core.Tests.csproj", "{EA9FC1DB-D972-46C8-BA38-7AE9BE107D66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaManagementSystem.Core.Tests", "tests\UnitTests\SpaManagementSystem.Core.Tests\SpaManagementSystem.Core.Tests.csproj", "{EA9FC1DB-D972-46C8-BA38-7AE9BE107D66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

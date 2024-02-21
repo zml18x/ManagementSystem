@@ -4,6 +4,6 @@ namespace SpaManagementSystem.Core.Repository
 {
     public interface IAddressRepository : IRepository<Address>
     {
-        Task<Address> GetByUserIdAsync(Guid userId);
+        Task<Address?> GetByUserIdAsync(Guid userId);
     }
 }

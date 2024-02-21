@@ -16,7 +16,7 @@ namespace SpaManagementSystem.Infrastructure.Repository
 
 
 
-        public async Task<TEntity> GetByIdAsync(Guid id)
+        public async Task<TEntity?> GetByIdAsync(Guid id)
             => await Task.FromResult(await _context.Set<TEntity>().FindAsync(id));
 
         public async Task CreateAsync(TEntity entity)
@@ -27,20 +27,24 @@ namespace SpaManagementSystem.Infrastructure.Repository
             await _context.Set<TEntity>().AddAsync(entity);
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public Task UpdateAsync(TEntity entity)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity), $"{nameof(entity)} cannot be a null");
 
             _context.Set<TEntity>().Update(entity);
+
+            return Task.CompletedTask;
         }
 
-        public async Task DeleteAsync(TEntity entity)
+        public Task DeleteAsync(TEntity entity)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity), $"{nameof(entity)} cannot be a null");
 
             _context.Set<TEntity>().Remove(entity);
+
+            return Task.CompletedTask;
         }
 
         public async Task SaveChangesAsync()

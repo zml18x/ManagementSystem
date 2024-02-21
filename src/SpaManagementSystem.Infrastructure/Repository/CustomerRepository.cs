@@ -18,7 +18,7 @@ namespace SpaManagementSystem.Infrastructure.Repository
 
 
 
-        public async Task<Customer> GetByEmailAsync(string email)
+        public async Task<Customer?> GetByEmailAsync(string email)
             => await Task.FromResult(await _context.Customers.FirstOrDefaultAsync(x => x.Email.ToLower() == email.ToLower()));
     }
 }

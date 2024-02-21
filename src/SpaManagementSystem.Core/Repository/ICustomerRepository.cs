@@ -4,6 +4,6 @@ namespace SpaManagementSystem.Core.Repository
 {
     public interface ICustomerRepository : IRepository<Customer>
     {
-        Task<Customer> GetByEmailAsync(string email);
+        Task<Customer?> GetByEmailAsync(string email);
     }
 }
