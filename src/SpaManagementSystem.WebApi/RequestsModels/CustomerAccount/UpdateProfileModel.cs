@@ -6,6 +6,5 @@
         public string LastName { get; set; }
         public string Gender { get; set; }
         public DateOnly DateOfBirth { get; set; }
-        public string Preferences { get; set; }
     }
 }
