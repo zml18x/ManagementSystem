@@ -103,15 +103,14 @@ namespace SpaManagementSystem.Infrastructure.Services
         /// <param name="dateOfBirth">The new date of birth of the customer.</param>
         /// <param name="preferences">The new preferences of the customer.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
-        public async Task UpdateProfileAsync(Guid id, string? firstName = null, string? lastName = null, string? gender = null, DateOnly? dateOfBirth = null)
+        public async Task UpdateProfileAsync(Guid id, string? firstName = null, string? lastName = null, string? gender = null, DateOnly? dateOfBirth = null, string? preferences = null)
         {
             try
             {
                 var customer = await _customerRepository.GetOrFailAsync(id);
+                var isUpdated = customer.UpdateBasicInfromation(firstName, lastName, gender, dateOfBirth, preferences);
 
-                var isUpdated = customer.UpdateBasicInfromation(firstName, lastName, gender, dateOfBirth);
-
-                if (isUpdated)
+                if(isUpdated)
                 {
                     await _customerRepository.UpdateAsync(customer);
                     await _customerRepository.SaveChangesAsync();

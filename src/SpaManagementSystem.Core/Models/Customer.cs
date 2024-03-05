@@ -36,7 +36,7 @@ namespace SpaManagementSystem.Core.Models
         /// <param name="dateOfBirth">The new date of birth of the customer.</param>
         /// <param name="preferences">The new preferences of the customer.</param>
         /// <returns>True if any information was updated; otherwise, false.</returns>
-        public bool UpdateBasicInfromation(string? firstName = null, string? lastName = null, string? gender = null, DateOnly? dateOfBirth = null)
+        public bool UpdateBasicInfromation(string? firstName = null, string? lastName = null, string? gender = null, DateOnly? dateOfBirth = null, string? preferences = null)
         {
             var anyInfoUpdated = false;
 
@@ -61,6 +61,16 @@ namespace SpaManagementSystem.Core.Models
             if (dateOfBirth != null)
             {
                 DateOfBirth = ValidateDateOfBirth((DateOnly)dateOfBirth);
+                anyInfoUpdated = true;
+            }
+
+            if(preferences != null)
+            {
+                if (preferences.Length > 0)
+                    Preferences = ValidatePreferences(preferences);
+                else
+                    Preferences = null;
+
                 anyInfoUpdated = true;
             }
 
