@@ -64,7 +64,7 @@ namespace SpaManagementSystem.WebApi.Controllers
 
             var customerId = Guid.Parse(User.Identity!.Name!);
 
-            await _customerService.UpdateProfileAsync(customerId, updateProfileModel.FirstName, updateProfileModel.LastName, updateProfileModel.Gender, updateProfileModel.DateOfBirth, updateProfileModel.Preferences);
+            await _customerService.UpdateProfileAsync(customerId, updateProfileModel.FirstName, updateProfileModel.LastName, updateProfileModel.Gender, updateProfileModel.DateOfBirth);
 
             return Ok("Profile updated successfully.");
         }
